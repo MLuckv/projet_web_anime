@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ path('home_index')}}">
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #3E5C76; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+    <a class="navbar-brand" href="{{ path('home_index')}}" style="margin-left: 15px; font-size: 25px; font-family: 'Roboto', sans-serif; font-weight: bold; color: white; text-shadow: -1px -1px  black, 1px -1px  black, -1px 1px black, 1px 1px 0 black;">
         Crunch'Roll
-        <img src="{{asset('/assets/img/logo.svg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="{{asset('/assets/img/crunch_roll_logo.png')}}" width="50" height="30" class="d-inline-block align-top" alt="">
 
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,14 +9,18 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('stat_index')}}">page1 <span class="sr-only"></span></a>
+        <ul class="navbar-nav ms-auto" style="display: flex;">
+            <li class="nav-item ml-auto">
+                <a class="nav-link" href="{{ path('stat_index')}}"> <span class="sr-only"></span>
+                <img src="{{asset('/assets/img/Vector_w.svg')}}" width="50" height="30" class="d-inline-block align-top" alt="">
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#"><img src="{{asset('/assets/img/logo_stat_w.svg')}}" width="50" height="30" class="d-inline-block align-top" alt=""></a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="#"><img src="{{asset('/assets/img/user_w.svg')}}" width="50" height="30" class="d-inline-block align-top" alt=""></a>
+            </li>
         </ul>
     </div>
 </nav>
