@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\RateRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RateRepository::class)]
@@ -15,76 +13,42 @@ class Rate
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @var Collection<int, User>
-     */
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'rates')]
-    private Collection $user_id;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
-    /**
-     * @var Collection<int, Anime>
-     */
     #[ORM\ManyToOne(targetEntity: Anime::class, inversedBy: 'rates')]
-    private Collection $anime_id;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Anime $anime = null;
 
     #[ORM\Column]
     private ?int $rating = null;
-
-    public function __construct()
-    {
-        $this->user_id = new ArrayCollection();
-        $this->anime_id = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUserId(): Collection
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function addUserId(User $userId): static
+    public function setUser(?User $user): static
     {
-        if (!$this->user_id->contains($userId)) {
-            $this->user_id->add($userId);
-        }
+        $this->user = $user;
 
         return $this;
     }
 
-    public function removeUserId(User $userId): static
+    public function getAnime(): ?Anime
     {
-        $this->user_id->removeElement($userId);
-
-        return $this;
+        return $this->anime;
     }
 
-    /**
-     * @return Collection<int, Anime>
-     */
-    public function getAnimeId(): Collection
+    public function setAnime(?Anime $anime): static
     {
-        return $this->anime_id;
-    }
-
-    public function addAnimeId(Anime $animeId): static
-    {
-        if (!$this->anime_id->contains($animeId)) {
-            $this->anime_id->add($animeId);
-        }
-
-        return $this;
-    }
-
-    public function removeAnimeId(Anime $animeId): static
-    {
-        $this->anime_id->removeElement($animeId);
+        $this->anime = $anime;
 
         return $this;
     }
