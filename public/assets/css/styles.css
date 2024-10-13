@@ -1,51 +1,96 @@
+
 body {
     background-color: #D2D9F9;
 }
 
-.image-container {
-    position: relative;
-}
 
-/*.dimension-image {
-    width: 200px;
-    height: 300px;
-    object-fit: cover;
-    transform: rotate(35deg);
-    position: relative;
-    left: 1px;
-}*/
-
-/* Conteneur qui masque l'image lorsqu'elle dépasse le cadre */
+/*scrolling image*/
 .scrolling-image-container {
-    position: relative;
-    width: 100%;
+    position: fixed;
+    width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    rotate: 45deg;
+    left: 350px;
+    top: -400px;
+    opacity: 50%;
 }
 
-/* Image qui défile */
 .scrolling-image {
-    position: absolute;
-    top: 0;                  /* Commence en haut */
-    left: 50%;               /* Centrée horizontalement */
+    position: fixed;
+    left: 50%;
     transform: translateX(-50%);
-    width: 1500px;            /* Largeur de l'image */
-    height: auto;
-    animation: scrollDown 5s linear infinite;
+    animation: scrollDown 20s linear infinite;
 }
 
-/* Animation pour faire défiler l'image de haut en bas */
 @keyframes scrollDown {
     0% {
-        top: 0;              /* L'image commence en haut */
+        top: -2025px;
     }
     100% {
-        top: 100vh;          /* L'image finit en bas de la fenêtre */
+        top: 1700px;
     }
 }
 
-/* Fixe le positionnement de la deuxième image pour la continuité */
 .scrolling-image:nth-child(2) {
-    top: -100vh;             /* La deuxième image commence juste après la première */
+    animation-delay: 10s;
+    top: -1800px;
 }
+
+.menu-container{
+    position: fixed;
+    z-index: 1;
+    left: 37%;
+    top: 30%;
+}
+
+
+/*search bar*/
+.left{
+
+    border-top-right-radius: 32px !important;
+    border-bottom-right-radius: 32px !important;
+    background-color: #fff;
+    height: 33px;
+}
+
+
+
+.magnifying-glass{
+
+    border-top-left-radius: 32px !important;
+    border-bottom-left-radius: 32px !important;
+    background-color: #fff;
+
+}
+
+.input-group-prepend {
+    margin-right: -2px !important;
+}
+
+
+.input-group-append {
+    margin-left: -2px !important;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ced4da;
+    outline: 0;
+    box-shadow: 0 0 0 0 !important;
+
+}
+
+.form-control{
+
+    border-right: 0 !important;
+    border-left: 0 !important;
+    height: 33px;
+}
+
+
+
+
+
+
 
