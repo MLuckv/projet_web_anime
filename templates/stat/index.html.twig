@@ -3,15 +3,8 @@
 {% block title %}Statistiques{% endblock %}
 
 {% block body %}
-    <h1>Liste des Genres Uniques</h1>
-    <ul>
-        {% for genre in genres %}
-            <li>{{ genre }}</li>
-        {% endfor %}
-    </ul>
-
     <div>
-        <canvas id="genre" width="400" height="100"></canvas>
+        <canvas id="genreData" width="400" height="100"></canvas>
     </div>
 {% endblock %}
 
@@ -21,18 +14,18 @@
     <script>
         {# fonction verifiant que le genre existe et est chargé #}
         document.addEventListener("DOMContentLoaded", function() {
-            const genre = document.getElementById('genre');
+            const genre = document.getElementById('genreData');
 
             if (genre) {
                 let graph = new Chart(genre, {
-                    type: 'bar',
+                    type: 'pie',
                     data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        labels: {{ genres|raw }},
                         datasets: [{
-                            label: 'genre regarder',
-                            data: [12, 19, 3, 5, 2, 3],
+                            label: 'Anime par Genre',
+                            data: {{ counts|raw }},
                             borderWidth: 1,
-                            backgroundColor : ["red", "blue"]
+                            //backgroundColor : ["red", "blue"]
                         }]
                     }
                 });

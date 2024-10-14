@@ -41,6 +41,33 @@ class AnimeRepository extends ServiceEntityRepository
         return $genres;
     }
 
+    public function findGenresWithCounts(): array
+    {
+        $results = $this->createQueryBuilder('a')
+            ->select('a.Genre')
+            ->getQuery()
+            ->getResult();
+
+        $genreCounts = [];
+
+        foreach ($results as $result) {
+            $animeGenres = explode(',', $result['Genre']);
+
+            foreach ($animeGenres as $genre) {
+                $genre = trim($genre);
+
+                if (!array_key_exists($genre, $genreCounts)) {
+                    $genreCounts[$genre] = 0;
+                }
+
+                $genreCounts[$genre]++;
+            }
+        }
+
+        return $genreCounts;
+    }
+
+
 
     //public function findUniqueGenres(): array
     //    {
@@ -50,29 +77,4 @@ class AnimeRepository extends ServiceEntityRepository
     //            ->getResult();
     //    }
 
-
-    //    /**
-    //     * @return Anime[] Returns an array of Anime objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Anime
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

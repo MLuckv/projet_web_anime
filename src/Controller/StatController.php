@@ -14,10 +14,23 @@ class StatController extends AbstractController
     public function index(AnimeRepository $animeRepository): Response
     {
         //chercher les genre
-        $genres = $animeRepository->findUniqueGenres();
+        $genresData = $animeRepository->findGenresWithCounts();
+        $genres = [];
+        $counts = [];
+
+        //dd($genresData);
+
+        // Remplir les tableaux avec les données
+        foreach ($genresData as $genre => $count) {
+            $genres[] = $genre; // Nom du genre
+            $counts[] = $count;  // Compte du genre
+        }
+
+        //dd($counts, $genres);
 
         return $this->render('stat/index.html.twig', [
-            'genres' => $genres,
+            'genres' => json_encode($genres), // Passer le tableau des genres
+            'counts' => json_encode($counts),   // Passer le tableau des counts
         ]);
     }
 }
