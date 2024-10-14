@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\AnimeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,10 +11,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class StatController extends AbstractController
 {
     #[Route('', name: 'index')]
-    public function index(): Response
+    public function index(AnimeRepository $animeRepository): Response
     {
+        //chercher les genre
+        $genres = $animeRepository->findUniqueGenres();
+
         return $this->render('stat/index.html.twig', [
-            'controller_name' => 'StatController',
+            'genres' => $genres,
         ]);
     }
 }

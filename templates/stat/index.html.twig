@@ -1,20 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello StatController!{% endblock %}
+{% block title %}Statistiques{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
+    <h1>Liste des Genres Uniques</h1>
     <ul>
-        <li>Your controller at <code>C:/wamp64/www/mv/projet_web_anime/src/Controller/StatController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/mv/projet_web_anime/templates/stat/index.html.twig</code></li>
+        {% for genre in genres %}
+            <li>{{ genre }}</li>
+        {% endfor %}
     </ul>
-</div>
+
+    <div>
+        <canvas id="genre" width="400" height="100"></canvas>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        {# fonction verifiant que le genre existe et est chargé #}
+        document.addEventListener("DOMContentLoaded", function() {
+            const genre = document.getElementById('genre');
+
+            if (genre) {
+                let graph = new Chart(genre, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                            label: 'genre regarder',
+                            data: [12, 19, 3, 5, 2, 3],
+                            borderWidth: 1,
+                            backgroundColor : ["red", "blue"]
+                        }]
+                    }
+                });
+            } else {
+                console.error("L'élément canvas avec l'ID 'genre' est introuvable.");
+            }
+        });
+    </script>
 {% endblock %}
