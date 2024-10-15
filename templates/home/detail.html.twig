@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Anime Detail{% endblock %}
+
+{% block body %}
+
+    <div class="info-anime">
+        <br>
+        <div class="title-anime">
+            Titre anime
+        </div>
+        <br>
+        <div class="into-info-anime">
+            <p>Note :</p>
+            <br>
+            <p>Sortie :</p>
+            <p>Genres :</p>
+            <p>Studio :</p>
+            <p>Favorite</p>
+            <br>
+            <p>Synopsis :</p>
+        </div>
+    </div>
+    <div class="image-anime-container">
+        <img class="image-anime-container" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}">
+    </div>
+
+
+
+
+{% endblock %}
