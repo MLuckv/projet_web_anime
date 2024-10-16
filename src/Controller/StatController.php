@@ -27,7 +27,6 @@ class StatController extends AbstractController
             ];
         }
 
-        //dd($labels);
         //dd($dataPoints);
 
         return $this->render('stat/index.html.twig', [
