@@ -211,6 +211,20 @@ body {
     width: 350px;
     left: 200px;
 }
+.note-gender-container{
+    position: absolute;
+    left: 175px;
+    top: 1000px;
+    width: 400px;
+    height: 400px;
+    border: 1px solid black;
+
+}
+
+/*page statistique*/
+.graph-container{
+    width: 100px;
+}
 
 
 
