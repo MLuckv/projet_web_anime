@@ -6,6 +6,10 @@
     <div>
         <canvas id="genreData" width="400" height="100"></canvas>
     </div>
+
+    <div>
+        <canvas id="animeData" width="400" height="100"></canvas>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -25,9 +29,9 @@
                     data: {
                         datasets: [{
                             label: 'Nombre d\'anime et nombre de vue par genre' ,
-                            data: {{ data|raw }},
+                            data: {{ data_graph1|raw }},
                             borderWidth: 1,
-                            backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                            backgroundColor: 'rgba(0,44,255,0.6)'
                         }]
                     },
                     options: {
@@ -69,6 +73,83 @@
             } else {
                 console.error("L'élément canvas avec l'ID 'genre' est introuvable.");
             }
+
+            //graph anime
+
+            const anime = document.getElementById('animeData');
+
+            //Fonction pour obtenir la couleur en fonction de la popularité
+            function getColorByPopularity(popularity) {
+                const minPopularity = 1;
+                const maxPopularity = 17565;
+
+                // Normaliser la popularité entre 0 et 1
+                const normalizedPopularity = (popularity - minPopularity) / (maxPopularity - minPopularity);
+
+                // Calculer la valeur de rouge
+                const red = Math.floor(normalizedPopularity * 255); // De 0 (faible popularité) à 255 (haute popularité)
+
+                return `rgba(${red}, 0, 0, 0.6)`; // Couleur rouge avec transparence
+            }
+
+            if (anime) {
+
+                const dataPoints = {{ data_graph2|raw }};
+
+                let graph = new Chart(anime, {
+                    type: 'bubble', // Type de graphique
+                    data: {
+                        datasets: [{
+                            label: 'Anime Data', // Étiquette pour le jeu de données
+                            data: dataPoints.map(point => ({
+                                x: point.x, // Abscisse
+                                y: point.y, // Ordonnée
+                                r: point.r, // Rayon de la bulle (pour la taille)
+                                label: point.label
+                            })),
+                            backgroundColor: dataPoints.map(point => getColorByPopularity(point.popularity)) // Couleur des bulles
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false // Désactive la légende du graphique (nombre d anime et nombre de vue par genre)
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Regarde (Watching)'
+                                },
+                                min: 0,
+                                max: 1000 // Ajustez en fonction de vos données
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Score'
+                                },
+                                min: 0,
+                                max: 10 // Ajustez en fonction de vos données
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const label = context.dataset.label || '';
+                                        return `${label}: Watching ${context.raw.x}, Score ${context.raw.y}, Episodes ${context.raw.r}`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error("L'élément canvas avec l'ID 'anime' est introuvable.");
+            }
+
+
+
         });
     </script>
     </div>

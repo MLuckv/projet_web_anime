@@ -15,22 +15,38 @@ class StatController extends AbstractController
     {
         //chercher les informations nécessaire
         $genresData = $animeRepository->findGenresWithCountsAndWatching();
-        $dataPoints = [];
+        $dataPoints1 = [];
+
+        $animeData = $animeRepository->findAll();
+        $dataPoints2 = [];
 
         //dd($genresData);
+        //dd($animeData);
 
         foreach ($genresData as $genre => $data) {
-            $dataPoints[] = [
+            $dataPoints1[] = [
                 'x' => $data['watching'],
                 'y' => $data['count'],
                 'label' => $genre
             ];
         }
 
-        //dd($dataPoints);
+        foreach ($animeData as $anime) {
+            $dataPoints2[] = [
+                'x' => $anime->getWatching(),
+                'y' => $anime->getScore(),
+                'r' => $anime->getEpisode(),//taille bulle
+                'label' => $anime->getNom(),
+                'popularity' => $anime->getPopularity(),
+            ];
+        }
+
+        //dd($dataPoints1, $dataPoints2);
 
         return $this->render('stat/index.html.twig', [
-            'data' => json_encode($dataPoints),// Passer les tableau pour les graph
+            'data_graph1' => json_encode($dataPoints1),// Passer les tableau pour les graph
+            'data_graph2' => json_encode($dataPoints2),
+
         ]);
     }
 }
