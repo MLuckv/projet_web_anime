@@ -155,8 +155,12 @@ body {
 
 /*recommendation*/
 .recommendation-container{
-    position: relative;
-    font-family: "Joti One", serif;;
+    position: absolute;
+    font-family: "Joti One", serif;
+    top: 700px;
+    left: 915px;
+    font-size: 35px;
+    color: #5E0A3F;
 }
 
 .title-reco-container{
@@ -183,6 +187,29 @@ body {
     border-radius: 15px;
     width: 260px;
     margin-left: 200px;
+}
+.image-recomendation{
+    position:relative;
+    width: 460px;
+}
+
+.image-anime-reco{
+    position: relative;
+    margin-top: 50px;
+    margin-left: 15px;
+    border: 2px solid black;
+}
+
+.title-note-container{
+    position: absolute;
+    text-align: center;
+    top: 900px;
+    font-size: 25px;
+    font-weight: 500;
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 350px;
+    left: 200px;
 }
 
 
