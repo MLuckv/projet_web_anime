@@ -26,7 +26,15 @@
             </div>
 
             {{ form_start(form) }}
-            {{ form_widget(form) }}
+            {{ form_widget(form, {
+                attr: {
+                    'is': 'select-anime',
+                    'data-remove': path('home_search'),
+                    'data-value': 'id',
+                    'data-label': 'Nom'
+                }
+            }) }}
+
             {{ form_end(form) }}
 
         </div>

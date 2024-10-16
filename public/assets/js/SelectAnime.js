@@ -10,26 +10,21 @@ class SelectAnime extends HTMLSelectElement {
             plugins: {},
             closeAfterSelect: true,
             hideSelected: true,
+            valueField: 'id',   // Assurez-vous que 'id' est utilisé pour la valeur
+            labelField: 'Nom',  // Assurez-vous que 'Nom' est utilisé pour l'affichage
+            searchField: 'Nom'  // Définissez le champ de recherche si ce n’est pas encore fait
         };
 
-        if (this.tagName === 'SELECT') {
-            params.allowEmptyOption = true;
-            params.no_backspace_delete = {};
-            params.dropdown_input = {};
-            params.plugins_remove_button = {
-                title: "Supp anime"
-            };
-        }
-
         if (this.dataset.remove) {
-            params.valueField = this.dataset.value;
-            params.labelField = this.dataset.label;
-            params.labelSearch = this.dataset.search;
             params.load = async (query, callback) => {
                 try {
                     const response = await fetch(`${this.dataset.remove}?q=${encodeURIComponent(query)}`);
                     if (response.ok) {
                         const data = await response.json();
+
+                        console.log("Données reçues :", data); // Log pour vérifier les données
+
+                        // Pas besoin de transformation, les données sont déjà prêtes pour TomSelect
                         callback(data);
                     } else {
                         console.error("Erreur de chargement des données :", response.statusText);
@@ -58,7 +53,8 @@ class SelectAnime extends HTMLSelectElement {
 
         this.parentNode.replaceChild(selectElement, this);
 
-        this.widget = new TomSelect(selectElement, params); // Utilisation directe de TomSelect
+        // Instancier TomSelect
+        this.widget = new TomSelect(selectElement, params);
     }
 
     disconnectedCallback() {
