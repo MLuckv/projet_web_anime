@@ -7,18 +7,18 @@
     <div class="info-anime">
         <br>
         <div class="title-anime">
-            Titre anime
+            {{ anime.Nom }}
         </div>
         <br>
         <div class="into-info-anime">
-            <p>Note :</p>
+            <p>Note : {{ anime.Score|number_format(2) }}</p>
             <br>
-            <p>Sortie :</p>
-            <p>Genres :</p>
-            <p>Studio :</p>
-            <p>Favorite</p>
+            <p>Sortie : {{ anime.Premiered }}</p>
+            <p>Genres : {{ anime.Genre }}</p>
+            <p>Studio : {{ anime.Studios }}</p>
+            <p>Favorite : {{ anime.Favorites }}</p>
             <br>
-            <p>Synopsis :</p>
+            <p>Synopsis : {{ anime.Synopsis }}</p>
         </div>
     </div>
     <div class="image-anime-container">

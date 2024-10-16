@@ -10,6 +10,9 @@
 
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
+
 
     <script>
         {# fonction verifiant que le genre existe et est chargé #}
@@ -18,19 +21,49 @@
 
             if (genre) {
                 let graph = new Chart(genre, {
-                    type: 'pie',
+                    type: 'scatter',
                     data: {
-                        labels: {{ genres|raw }},
                         datasets: [{
-                            label: 'Anime par Genre',
-                            data: {{ counts|raw }},
+                            label: 'Nombre d\'anime et nombre de vue par genre' ,
+                            data: {{ data|raw }},
                             borderWidth: 1,
-                            backgroundColor: [
-                                'rgb(255, 99, 132)',
-                                'rgb(54, 162, 235)',
-                                'rgb(255, 205, 86)'
-                            ],
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)'
                         }]
+                    },
+                    options: {
+                        legend: {
+                            display: false // Désactive la légende du graphique (nombre d anime et nombre de vue par genre)
+                        },
+                        scales: {
+                            xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Nombre de personnes regardant'
+                                },
+                            }],
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Nombre d\'animes'
+                                },
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                        plugins: {
+                            datalabels: {
+                                align: 'end',
+                                anchor: 'end',
+                                formatter: function(value, context) {
+                                    return value.label;
+                                },
+                                font: {
+                                    weight: 'bold'
+                                },
+                                color: '#000'
+                            }
+                        }
                     }
                 });
             } else {
