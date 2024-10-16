@@ -43,7 +43,7 @@ class AnimeSearch extends AbstractType implements DataTransformerInterface
         $view->vars['choices'] = $choices;
         $view->vars['choice_translation_domain'] = false;
         $view->vars['placeholder_in_choices'] = false;
-        $view->vars['placeholder'] = 'Selectionnez un anime ';
+        $view->vars['placeholder'] = false;
         $view->vars['expanded'] = false;
         $view->vars['multiple'] = false;
         $view->vars['preferred_choices'] = [];

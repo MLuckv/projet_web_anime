@@ -42,15 +42,27 @@ class HomeController extends AbstractController
             ->select('a.id, a.Nom')
             ->where('LOWER(a.Nom) LIKE :Nom')
             ->setParameter('Nom',"%$q%")
-            ->setMaxResults(30)
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult();
         return new JsonResponse($anime);
     }
 
-    #[Route('/detail', name: 'detail')]
-    public function detail(): Response
+    #[Route('/anime/{slug}', name: 'anime_detail')]
+    public function animeDetail(string $slug): Response
     {
-        return $this->render('home/detail.html.twig');
+        // Extraire l'ID à partir du slug
+        $animeId = explode('-', $slug)[0];
+
+        $anime = $this->animeRepository->find($animeId);
+
+        if (!$anime) {
+            throw $this->createNotFoundException('Cet anime n\'existe pas.');
+        }
+
+        return $this->render('home/detail.html.twig', [
+            'anime' => $anime,
+        ]);
     }
+
 }
