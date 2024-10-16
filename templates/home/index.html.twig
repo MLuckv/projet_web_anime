@@ -12,30 +12,35 @@
             <img  src="{{ asset('/assets/img/crunch_roll_logo.png') }}" alt="Image">
         <br>
         <br>
-        <div class="container d-flex justify-content-center">
+{#        <div class="container d-flex justify-content-center">#}
 
 
-            <div class="input-group col-sm-7  input-group-lg">
-                <div class="input-group-prepend">
-                    <span class="input-group-text magnifying-glass"><img src="https://img.icons8.com/?size=20&id=7695&format=png&color=000000"></span>
-                </div>
-                <input type="text" class="form-control">
-                <div class="input-group-append">
-                    <span class="input-group-text left"></span>
-                </div>
+{#            <div class="input-group col-sm-7  input-group-lg">#}
+{#                <div class="input-group-prepend">#}
+{#                    <span class="input-group-text magnifying-glass"><img src="https://img.icons8.com/?size=20&id=7695&format=png&color=000000"></span>#}
+{#                </div>#}
+{#                <input type="text" class="form-control">#}
+{#                <div class="input-group-append">#}
+{#                    <span class="input-group-text left"></span>#}
+{#                </div>#}
+{#            </div>#}
+{#        <div class="input-group-prepend">#}
+{#            <span class="input-group-text magnifying-glass"><img src="https://img.icons8.com/?size=20&id=7695&format=png&color=000000"></span>#}
+{#        </div>#}
+            <div class="search-bar">
+                {{ form_start(form, {'attr': {'class': 'mon-formulaire'}}) }}
+                {{ form_widget(form, {
+                    'attr': {
+                        'is': 'select-anime',
+                        'data-remove': path('home_search'),
+                        'data-value': 'id',
+                        'data-label': 'Nom',
+                        'class': 'mon-champ-select'
+                    }
+                }) }}
+                {{ form_end(form) }}
+
             </div>
-
-            {{ form_start(form) }}
-            {{ form_widget(form, {
-                attr: {
-                    'is': 'select-anime',
-                    'data-remove': path('home_search'),
-                    'data-value': 'id',
-                    'data-label': 'Nom'
-                }
-            }) }}
-
-            {{ form_end(form) }}
 
         </div>
     </div>

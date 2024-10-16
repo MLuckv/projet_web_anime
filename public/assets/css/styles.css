@@ -43,11 +43,24 @@ body {
     z-index: 1;
     left: 37%;
     top: 30%;
+    opacity: 80%;
+}
+
+.search-bar{
+    position: fixed;
+    width: 300px;
+    top: 325px;
+    height: 200px;
+}
+
+.mon-formulaire{
+    height: 1000px;
+    top: 300px;
 }
 
 
 /*search bar*/
-.left{
+/*.left{
 
     border-top-right-radius: 32px !important;
     border-bottom-right-radius: 32px !important;
@@ -89,7 +102,7 @@ body {
     border-left: 0 !important;
     height: 33px;
 }
-
+*/
 /*page anime detail*/
 .info-anime{
     position: fixed;
@@ -188,6 +201,15 @@ body {
     width: 260px;
     margin-left: 200px;
 }
+.gender-container{
+    position: absolute;
+    top: 350px;
+    width: 400px;
+    height: 400px;
+    border: 1px solid black;
+    left: 175px;
+}
+
 .image-recomendation{
     position:relative;
     width: 460px;
@@ -200,6 +222,7 @@ body {
     border: 2px solid black;
 }
 
+/*graphique note genre */
 .title-note-container{
     position: absolute;
     text-align: center;
