@@ -16,16 +16,16 @@
     <div class="info-profile">
         <div class="text-profile">
             <br>
-            <a>Pseudo</a><a style="margin-left: 150px"><a>Ville</a>,<a>Pays</a></a>
+            <a>Pseudo : {{ user[0].Username }}</a><a style="margin-left: 150px"><a>Ville : {{ user[0].Location }}</a>{#  ,<a>Pays</a>#}</a>
             <br>
-            <a>Genre</a><a style="margin-left: 160px"><a>Âge</a></a>
+            <a>Genre {{ user[0].Gender }}</a><a style="margin-left: 160px"><a>Âge : {# requette pas rapport au birthdays #}</a></a>
             <br>
             <br>
-            <a>Jours total :</a>
+            <a>Jours total : {{ user[0].DaysWatched }} jours</a>
             <br>
-            <a>Anime regardé :</a><a style="margin-left: 85px"><a>Anime fini :</a></a>
+            <a>Anime regardé : {{ user[0].Watching }}</a><a style="margin-left: 85px"><a>Anime fini : {{ user[0].Completed }}</a></a>
             <br><br>
-            <a>Anime noté :</a><a style="margin-left: 110px"><a>Moyenne de note :</a></a>
+            <a>Anime noté :{# requette avec jointure sur les rate #}</a><a style="margin-left: 110px"><a>Moyenne de note : {{ user[0].MeanScore }}</a></a>
         </div>
     </div>
     <div class="title-reco-container"> Top 5 recommendations :</div>
