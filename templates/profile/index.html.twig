@@ -6,7 +6,7 @@
     <br>
     <br>
     <div class="title-profile">
-        <a>Nom profile :</a>
+        <a>Profile de {{ user.Username }}</a>
     </div>
     <div class="title-gender-container"> <a>Genres plus regardé :</a> </div>
     <div class="gender-container">
@@ -24,7 +24,7 @@
             <br>
             <a>Anime regardé : {{ user.Watching }}</a><a style="margin-left: 85px"><a>Anime fini : {{ user.Completed }}</a></a>
             <br><br>
-            <a>Anime noté : {{ nbRate }}</a><a style="margin-left: 110px"><a>Moyenne de note : {{ user.MeanScore }}</a></a>
+            <a>Anime noté : {{ nbRate }}</a><a style="margin-left: 110px"><a>Moyenne de note : {{ user.MeanScore|number_format(2) }}</a></a>
         </div>
     </div>
     <div class="title-reco-container"> Top 5 recommendations :</div>
