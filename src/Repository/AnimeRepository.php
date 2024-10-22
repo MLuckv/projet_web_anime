@@ -51,6 +51,18 @@ class AnimeRepository extends ServiceEntityRepository
     }
 
 
+    public function findAnimesByName(string $name, int $limit): array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id, a.Nom')
+            ->where('LOWER(a.Nom) LIKE LOWER(:Nom)')
+            ->setParameter('Nom', "%$name%")
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 
 

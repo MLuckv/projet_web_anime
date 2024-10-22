@@ -8,17 +8,19 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\UserSearch;
 use App\Repository\UsersRepository;
-
+use App\Repository\RateRepository;
 
 #[Route('/profile', name: 'profile_')]
 class ProfileController extends AbstractController
 {
 
     private UsersRepository $UsersRepository;
+    private RateRepository $RateRepository;
 
-    public function __construct(UsersRepository $UsersRepository)
+    public function __construct(UsersRepository $UsersRepository, RateRepository $RateRepository)
     {
         $this->UsersRepository = $UsersRepository;
+        $this->RateRepository = $RateRepository;
     }
 
     #[Route('/popup', name: 'popup')]
@@ -33,14 +35,8 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $q = strtolower($data['Username']);
 
-            $user = $this->UsersRepository->createQueryBuilder('u')
-            ->where('LOWER(u.Username) = :Username')
-            ->setParameter('Username', $q)
-                ->setMaxResults(1)
-            ->getQuery()
-            ->getResult();
+            $user = $this->UsersRepository->findByUsername($data['Username']);
 
             // id pour le slug
             $userId = uniqid();
@@ -53,7 +49,7 @@ class ProfileController extends AbstractController
             // Redirection vers la page des détails de l'utilisateur avec le slug id
             return $this->redirectToRoute('profile_index', ['id' => $userId]);
         }
-        
+
         return $this->render('profile/popup.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -72,6 +68,16 @@ class ProfileController extends AbstractController
         // Si l'utilisateur n'existe pas dans la session, renvoyer une erreur 404
         if (!$user) {
             throw $this->createNotFoundException('User not found');
+        }else{
+
+            if (!$user instanceof \App\Entity\User) {
+                throw new \LogicException('Invalid user entity');
+            }
+
+            $age = $this->UsersRepository->getUserAge($user);
+            $rates = $this->RateRepository->findByUserId($user->getId());
+
+            //dd(count($rates));
         }
 
         //dd($user, $session);
@@ -79,6 +85,8 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
             'id' => $id,
             'user' => $user,
+            'age' => $age,
+            'nbRate' => count($rates),
         ]);
     }
 }

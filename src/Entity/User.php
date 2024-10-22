@@ -63,7 +63,7 @@ class User
     /**
      * @var Collection<int, Rate>
      */
-    #[ORM\ManyToMany(targetEntity: Rate::class, mappedBy: 'user_id')]
+    #[ORM\OneToMany(targetEntity: Rate::class, mappedBy: 'user')]
     private Collection $rates;
 
     public function __construct()

@@ -88,7 +88,7 @@ class Anime
     /**
      * @var Collection<int, Rate>
      */
-    #[ORM\ManyToMany(targetEntity: Rate::class, mappedBy: 'anime_id')]
+    #[ORM\OneToMany(targetEntity: Rate::class, mappedBy: 'anime')]
     private Collection $rates;
 
     public function __construct()

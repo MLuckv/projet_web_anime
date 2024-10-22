@@ -16,6 +16,15 @@ class RateRepository extends ServiceEntityRepository
         parent::__construct($registry, Rate::class);
     }
 
+    public function findByUserId(int $userId): array
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.user = :UserID')
+            ->setParameter('UserID', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Rate[] Returns an array of Rate objects
 //     */

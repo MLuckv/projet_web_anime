@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use DateTime;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -16,28 +17,28 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    //    /**
-    //     * @return User[] Returns an array of User objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getUserAge(User $user): ?int
+    {
+        if ($user->getBirthday()) {
+            $birthday = DateTime::createFromFormat('Y-m-d', $user->getBirthday());
+            if ($birthday) {
+                $currentDate = new DateTime();
+                $age = $currentDate->diff($birthday)->y;
+                return $age;
+            }
+        }
+        return null; // Retourne null si date de naissance pas valide
+    }
 
-    //    public function findOneBySomeField($value): ?User
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findByUsername(string $username): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->where('LOWER(u.Username) LIKE LOWER(:Username)')
+            ->setParameter('Username', "%$username%")
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+
 }

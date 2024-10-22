@@ -16,16 +16,16 @@
     <div class="info-profile">
         <div class="text-profile">
             <br>
-            <a>Pseudo : {{ user[0].Username }}</a><a style="margin-left: 150px"><a>Ville : {{ user[0].Location }}</a>{#  ,<a>Pays</a>#}</a>
+            <a>Pseudo : {{ user.Username }}</a><a style="margin-left: 150px"><a>Ville : {{ user.Location }}</a>{#  ,<a>Pays</a>#}</a>
             <br>
-            <a>Genre {{ user[0].Gender }}</a><a style="margin-left: 160px"><a>Âge : {# requette pas rapport au birthdays #}</a></a>
+            <a>Genre : {{ user.Gender }}</a><a style="margin-left: 160px"><a>Âge : {{ age }}ans</a></a>
             <br>
             <br>
-            <a>Jours total : {{ user[0].DaysWatched }} jours</a>
+            <a>Jours total : {{ user.DaysWatched }} jours</a>
             <br>
-            <a>Anime regardé : {{ user[0].Watching }}</a><a style="margin-left: 85px"><a>Anime fini : {{ user[0].Completed }}</a></a>
+            <a>Anime regardé : {{ user.Watching }}</a><a style="margin-left: 85px"><a>Anime fini : {{ user.Completed }}</a></a>
             <br><br>
-            <a>Anime noté :{# requette avec jointure sur les rate #}</a><a style="margin-left: 110px"><a>Moyenne de note : {{ user[0].MeanScore }}</a></a>
+            <a>Anime noté : {{ nbRate }}</a><a style="margin-left: 110px"><a>Moyenne de note : {{ user.MeanScore }}</a></a>
         </div>
     </div>
     <div class="title-reco-container"> Top 5 recommendations :</div>

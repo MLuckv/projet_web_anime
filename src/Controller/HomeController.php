@@ -38,13 +38,7 @@ class HomeController extends AbstractController
     {
         $q = strtolower($request->query->get('q') ?? '');
 
-        $anime = $this->animeRepository->createQueryBuilder('a')
-            ->select('a.id, a.Nom')
-            ->where('LOWER(a.Nom) LIKE :Nom')
-            ->setParameter('Nom',"%$q%")
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
+        $anime = $this->animeRepository->findAnimesByName($q, 10);
         return new JsonResponse($anime);
     }
 
