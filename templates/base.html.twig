@@ -18,7 +18,12 @@
         {% endblock %}
     </head>
     <body>
-        {% include "_partial/_nav.html.twig" %}
+
+        {% if app.request.attributes.get('_route') not in ['profile_popup'] %}
+            {# desactive la nav dans profile popup #}
+            {% include "_partial/_nav.html.twig" %}
+        {% endif %}
+
         {% block body %}{% endblock %}
     </body>
     {#  <footer>

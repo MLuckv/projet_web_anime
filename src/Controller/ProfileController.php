@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\AnimeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,11 +17,13 @@ class ProfileController extends AbstractController
 
     private UsersRepository $UsersRepository;
     private RateRepository $RateRepository;
+    private AnimeRepository $AnimeRepository;
 
-    public function __construct(UsersRepository $UsersRepository, RateRepository $RateRepository)
+    public function __construct(UsersRepository $UsersRepository, RateRepository $RateRepository, AnimeRepository $AnimeRepository)
     {
         $this->UsersRepository = $UsersRepository;
         $this->RateRepository = $RateRepository;
+        $this->AnimeRepository = $AnimeRepository;
     }
 
     #[Route('/popup', name: 'popup')]
@@ -77,6 +80,25 @@ class ProfileController extends AbstractController
             $age = $this->UsersRepository->getUserAge($user);
             $rates = $this->RateRepository->findByUserId($user->getId());
 
+            $graph1 = $this->AnimeRepository->countAnimesByGenreForUser($user);
+            $graph1_label = [];
+            $graph1_data = [];
+
+            $graph2 = $this->AnimeRepository->averageRatingByGenreForUser($user);
+            $graph2_label = [];
+            $graph2_data = [];
+
+            foreach ($graph1 as $data) {
+                $graph1_label[] = $data['genre'];
+                $graph1_data[] = $data['count'];
+            }
+
+            foreach ($graph2 as $data) {
+                $graph2_label[] = $data['genre'];
+                $graph2_data[] = $data['averageRating'];
+            }
+
+            //dd($graph1, $graph2);
             //dd(count($rates));
         }
 
@@ -87,6 +109,10 @@ class ProfileController extends AbstractController
             'user' => $user,
             'age' => $age,
             'nbRate' => count($rates),
+            'graph1_data' => json_encode($graph1_data),
+            'graph1_label' => json_encode($graph1_label),
+            'graph2_data' => json_encode($graph2_data),
+            'graph2_label' => json_encode($graph2_label),
         ]);
     }
 }

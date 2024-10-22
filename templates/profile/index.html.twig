@@ -10,8 +10,7 @@
     </div>
     <div class="title-gender-container"> <a>Genres plus regardé :</a> </div>
     <div class="gender-container">
-
-
+        <canvas id="graph1Data" width="400" height="100"></canvas>
     </div>
     <div class="info-profile">
         <div class="text-profile">
@@ -36,12 +35,70 @@
     {#            <a>3.</a><img class="image-anime-reco" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">#}
             </div>
         </div>
-    <div class="title-note-container"> <a>Note en fonction des genres :</a></div>
+    <div class="title-note-container"> <a>Moyenne de note en fonction des genres :</a></div>
         <div class="note-gender-container ">
-
-
+            <canvas id="graph2Data" width="400" height="100"></canvas>
         </div>
 
 
 
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const genre = document.getElementById('graph1Data');
+
+            if (genre) {
+                let graph = new Chart(genre, {
+                    type: 'pie',
+                    data: {
+                        labels : {{ graph1_label|raw }},
+                        datasets: [{
+                            label: 'Genre regarder',
+                            data: {{ graph1_data|raw }},
+                            borderWidth: 1,
+                            backgroundColor: 'rgba(0,44,255,0.6)'
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false // Désactive la légende du graphique (nombre d anime et nombre de vue par genre)
+                        },
+                    }
+                });
+            } else {
+                console.error("L'élément canvas avec l'ID 'genre' est introuvable.");
+            }
+
+
+            const genre2 = document.getElementById('graph2Data');
+            if (genre2) {
+                let graph = new Chart(genre2, {
+                    type: 'bar',
+                    data: {
+                        labels : {{ graph2_label|raw }},
+                        datasets: [{
+                            label: 'Genre regarder',
+                            data: {{ graph2_data|raw }},
+                            borderWidth: 1,
+                            backgroundColor: 'rgba(0,44,255,0.6)'
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false // Désactive la légende du graphique (nombre d anime et nombre de vue par genre)
+                        },
+                    }
+                });
+            } else {
+                console.error("L'élément canvas avec l'ID 'genre' est introuvable.");
+            }
+        });
+
+    </script>
 {% endblock %}
