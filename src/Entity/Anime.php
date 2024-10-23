@@ -91,6 +91,9 @@ class Anime
     #[ORM\OneToMany(targetEntity: Rate::class, mappedBy: 'anime')]
     private Collection $rates;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ImageUrl = null;
+
     public function __construct()
     {
         $this->rates = new ArrayCollection();
@@ -400,6 +403,18 @@ class Anime
         if ($this->rates->removeElement($rate)) {
             $rate->removeAnimeId($this);
         }
+
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->ImageUrl;
+    }
+
+    public function setImageUrl(?string $ImageUrl): static
+    {
+        $this->ImageUrl = $ImageUrl;
 
         return $this;
     }
