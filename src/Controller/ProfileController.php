@@ -160,7 +160,10 @@ class ProfileController extends AbstractController
         $recommendedAnimeNames = [];
         foreach ($anime as $a) {
             if (in_array($a->getId(), $recommendedAnimeIds)) {
-                $recommendedAnimeNames[] = $a->getNom();
+                $recommendedAnimeNames[] = [
+                    'nom' => $a->getEnglishName() !== null ? $a->getEnglishName() : $a->getNom(),
+                    'image' => $a->getImageUrl(),
+                ];
             }
         }
         //dd($recommendedAnimeNames);
