@@ -11,12 +11,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto" style="display: flex;">
             <li class="nav-item ml-auto">
-                <a class="nav-link" href="#"> <span class="sr-only"></span>
+                <a class="nav-link" href="{{ path('app_algorithm')}}"> <span class="sr-only"></span>
                 <img src="{{asset('/assets/img/nav_bar_img/Vector_w.svg')}}" width="50" height="30" class="d-inline-block align-top" alt="">
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('stat_index')}}"><img src="{{asset('/assets/img/nav_bar_img/logo_stat_w.svg')}}" width="50" height="30" class="d-inline-block align-top" alt=""></a>
+                <a class="nav-link" href="{{ path('stat_index')}}">
+                    <img src="{{asset('/assets/img/nav_bar_img/logo_stat_w.svg')}}" width="50" height="30" class="d-inline-block align-top" alt="">
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('profile_popup')}}"><img src="{{asset('/assets/img/nav_bar_img/user_w.svg')}}" width="50" height="30" class="d-inline-block align-top" alt=""></a>
