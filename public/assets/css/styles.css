@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Joti+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Joti+One&display=swap');
 
 
 body {
@@ -264,8 +264,32 @@ body {
 /*page statistique*/
 .graph-container{
     width: 100px;
+
 }
 
+
+.graph-data{
+    margin-top: 80px;
+    width: 900px;
+    border: 3px solid black;
+
+}
+
+.graph-data canvas{
+    width: 100%;
+    height: 100%;
+}
+
+.graph-anim{
+    margin-top: 100px;
+    width: 900px;
+    border: 3px solid black;
+}
+
+.graph-anim canvas{
+    width: 100%;
+    height: 100%;
+}
 /*page algorithme*/
 
 .title-gender-selec-container{
@@ -324,20 +348,35 @@ body {
     font-weight: 700;
 }
 .image-algo-container{
-    position: absolute;
-    top: 550px;
+    position: relative;
+    margin-top: 600px;
     margin-left: 52px;
     width: 1200px;
     height: 443px;
     font-family: "Joti One", serif;
     font-size: 35px;
     color: #5E0A3F;
+    border: 1px solid black;
 }
 .image-anime-algo{
     position: relative;
-    margin-top: 150px;
+    top: 50px;
     margin-left: 15px;
     border-radius: 22px;
+    width: 175px;
+    height: 225px;
+    /*word-wrap: break-word;*/
+
+}
+
+.text-anime-algo{
+    position: relative;
+    margin-top: 0px;
+    word-wrap: break-word;
+    width: 250px;
+    height: 225px;
+    font-family: "Francois One", sans-serif;
+
 
 }
 
