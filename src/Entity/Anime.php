@@ -34,8 +34,8 @@ class Anime
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $Type = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $Episode = null;
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $Episode = null;
 
     #[ORM\Column(length: 28, nullable: true)]
     private ?string $Aired = null;
@@ -49,7 +49,7 @@ class Anime
     #[ORM\Column(length: 69, nullable: true)]
     private ?string $Licensors = null;
 
-    #[ORM\Column(length: 80, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Studios = null;
 
     #[ORM\Column(length: 13, nullable: true)]

@@ -24,7 +24,7 @@ class User
     #[ORM\Column(length: 45, nullable: true)]
     private ?string $Birthday = null;
 
-    #[ORM\Column(length: 45, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Location = null;
 
     #[ORM\Column(length: 45, nullable: true)]

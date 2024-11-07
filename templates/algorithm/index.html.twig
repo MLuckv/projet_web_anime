@@ -9,16 +9,26 @@
 
 <div class="gender-selec-container">
     <div class="gender-algo-wrapper">
-        <div class="gender-algo-container"><a>ACTION</a></div>
-        <div class="gender-algo-container"><a>AVENTURE</a></div>
-        <div class="gender-algo-container"><a>DRAME</a></div>
+        {% for genre in genres %}
+            <div class="gender-algo-container" ><a>{{ genre }}</a></div>
+        {% endfor %}
     </div>
-
 </div>
+
+
+
+
 <div class="title-image-algo-container">
     <a>Voici nos 4 recommandations :</a>
 </div>
 <div class="image-algo-container">
     <a>1.</a><img class="image-anime-algo" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+
+    </script>
 {% endblock %}

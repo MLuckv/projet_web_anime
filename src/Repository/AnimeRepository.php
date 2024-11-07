@@ -63,6 +63,17 @@ class AnimeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAnimesByGenre(string $genre, int $limit): array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id, a.Genre')
+            ->where('LOWER(a.Genre) LIKE LOWER(:Genre)')
+            ->setParameter('Genre', "%$genre%")
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     public function countAnimesByGenreForUser(User $user): array
     {
@@ -155,6 +166,30 @@ class AnimeRepository extends ServiceEntityRepository
     }
 
 
+    public function findUniqueGenres(): array
+    {
+        $results = $this->createQueryBuilder('a')
+            ->select('a.Genre') // Utilisez le nom correct du champ
+            ->getQuery()
+            ->getResult();
+
+        // Liste pour stocker les genres uniques
+        $genres = [];
+
+        foreach ($results as $result) {
+            // Séparer les genres par virgule
+            $animeGenres = explode(',', $result['Genre']);
+
+            foreach ($animeGenres as $genre) {
+                $genre = trim($genre); // Supprime les espaces autour
+                if (!in_array($genre, $genres)) {
+                    $genres[] = $genre;
+                }
+            }
+        }
+
+        return $genres;
+    }
 
 
 
@@ -184,30 +219,6 @@ class AnimeRepository extends ServiceEntityRepository
     //        return $genreCounts;
     //    }
     //
-    //    public function findUniqueGenres(): array
-    //    {
-    //        $results = $this->createQueryBuilder('a')
-    //            ->select('a.Genre') // Utilisez le nom correct du champ
-    //            ->getQuery()
-    //            ->getResult();
-    //
-    //        // Liste pour stocker les genres uniques
-    //        $genres = [];
-    //
-    //        foreach ($results as $result) {
-    //            // Séparer les genres par virgule
-    //            $animeGenres = explode(',', $result['Genre']);
-    //
-    //            foreach ($animeGenres as $genre) {
-    //                $genre = trim($genre); // Supprime les espaces autour
-    //                if (!in_array($genre, $genres)) {
-    //                    $genres[] = $genre;
-    //                }
-    //            }
-    //        }
-    //
-    //        return $genres;
-    //    }
     //
     //public function findUniqueGenres(): array
     //    {
