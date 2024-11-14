@@ -10,8 +10,21 @@
     <div class="gender-selec-container">
         <div class="gender-algo-wrapper">
             {% for genre in genres %}
-                <div class="gender-algo-container" data-genre="{{ genre }}"><a>{{ genre }}</a></div>
+                <button class="gender-algo-container" data-bs-toggle="modal" data-bs-target="#reg-modal" data-genre="{{ genre }}"><a>{{ genre }}</a></button>
             {% endfor %}
+        </div>
+        <div class="modal fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title">Choisissez 3 animes :</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -23,7 +36,8 @@
         <a>Voici nos 4 recommandations :</a>
     </div>
     <div class="image-algo-container">
-
+        <a>1.</a>  <div class="text-anime-algo"> Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen </div>{#<img class="image-anime-algo" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">#}
+        <a>2.</a><img class="image-anime-algo" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}"  alt="">
     </div>
 {% endblock %}
 

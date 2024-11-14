@@ -58,9 +58,14 @@ body {
 .menu-container{
     position: fixed;
     z-index: 1;
-    left: 37%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    left: 40%;
     top: 30%;
-    opacity: 80%;
+    opacity: 90%;
+    width: 250px;
+    height: 250px;
 }
 
 .search-bar{
@@ -75,51 +80,6 @@ body {
     top: 300px;
 }
 
-
-/*search bar*/
-/*.left{
-
-    border-top-right-radius: 32px !important;
-    border-bottom-right-radius: 32px !important;
-    background-color: #fff;
-    height: 33px;
-}
-
-
-
-.magnifying-glass{
-
-    border-top-left-radius: 32px !important;
-    border-bottom-left-radius: 32px !important;
-    background-color: #fff;
-
-}
-
-.input-group-prepend {
-    margin-right: -2px !important;
-}
-
-
-.input-group-append {
-    margin-left: -2px !important;
-}
-
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ced4da;
-    outline: 0;
-    box-shadow: 0 0 0 0 !important;
-
-}
-
-.form-control{
-
-    border-right: 0 !important;
-    border-left: 0 !important;
-    height: 33px;
-}
-*/
 /*page anime detail*/
 .info-anime{
     position: fixed;
@@ -315,6 +275,7 @@ body {
 
 .gender-algo-wrapper{
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
 }
 
@@ -349,6 +310,8 @@ body {
 }
 .image-algo-container{
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 600px;
     margin-left: 52px;
     width: 1200px;
@@ -360,7 +323,7 @@ body {
 }
 .image-anime-algo{
     position: relative;
-    top: 50px;
+    top: 30px;
     margin-left: 15px;
     border-radius: 22px;
     width: 175px;
