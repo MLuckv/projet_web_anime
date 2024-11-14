@@ -134,12 +134,12 @@ class ProfileController extends AbstractController
         //dd($animeData);
         $pythonPath = 'C:\Users\vmoul\anaconda3\python.exe';
 
-        // Commande pour exécuter le script Python
+        // process
         $process = new Process([
             $pythonPath,
             'C:\wamp64\www\mv\projet_web_anime\algoRecomandation\algoReco.py',
-            json_encode($ratingsData), // Passer les notations sous forme de JSON
-            json_encode($animeData), // Passer les données des animes sous forme de JSON
+            json_encode($ratingsData), // passer les données en json
+            json_encode($animeData),
             $userId,
             $n,
             0.5
@@ -148,12 +148,12 @@ class ProfileController extends AbstractController
         // Exécuter le processus
         $process->run();
 
-        // Vérifiez si le processus a échoué
+        // verifier processus a échoué
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
-        // Obtenir la sortie JSON
+        // Obtenir la sortie
         $output = json_decode($process->getOutput(), true);
         //dd($output);
         $recommendedAnimeIds = $output['recommendations'] ?? [];
