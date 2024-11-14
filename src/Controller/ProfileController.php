@@ -141,7 +141,8 @@ class ProfileController extends AbstractController
             json_encode($ratingsData), // Passer les notations sous forme de JSON
             json_encode($animeData), // Passer les données des animes sous forme de JSON
             $userId,
-            $n
+            $n,
+            0.5
         ]);
 
         // Exécuter le processus
