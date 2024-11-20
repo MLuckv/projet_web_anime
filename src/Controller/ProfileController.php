@@ -110,7 +110,7 @@ class ProfileController extends AbstractController
     private function getAnimeRecommendations(int $userId, int $n): array
     {
         // Récupérer les évaluations et les animes
-        $ratings = $this->RateRepository->findAll();
+        $ratings = $this->RateRepository->findBy([], null, 100);
         $anime = $this->AnimeRepository->findAll();
 
         // Convertir les évaluations en un format JSON pour le script Python
@@ -145,6 +145,7 @@ class ProfileController extends AbstractController
             0.5
         ]);
 
+
         // Exécuter le processus
         $process->run();
 
@@ -155,6 +156,11 @@ class ProfileController extends AbstractController
 
         // Obtenir la sortie
         $output = json_decode($process->getOutput(), true);
+        $errorOutput = $process->getErrorOutput();
+        if ($errorOutput) {
+            echo "Python error output: " . $errorOutput;
+        }
+
         //dd($output);
         $recommendedAnimeIds = $output['recommendations'] ?? [];
 

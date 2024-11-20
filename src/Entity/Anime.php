@@ -178,7 +178,7 @@ class Anime
 
     public function getEpisode(): ?int
     {
-        return $this->Episode;
+        return intval($this->Episode);
     }
 
     public function setEpisode(?int $Episode): static
