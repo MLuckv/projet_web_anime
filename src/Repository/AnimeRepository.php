@@ -17,6 +17,40 @@ class AnimeRepository extends ServiceEntityRepository
         parent::__construct($registry, Anime::class);
     }
 
+    // Repository : AnimeRepository.php
+
+    public function findGenreWithAnime(): array
+    {
+        $results = $this->createQueryBuilder('a')
+            ->select('a.Genre, a.Nom, a.ImageUrl')
+            ->getQuery()
+            ->getResult();
+
+        $genreToAnimes = [];
+
+        foreach ($results as $result) {
+            $animeGenres = explode(',', $result['Genre']);
+
+            foreach ($animeGenres as $genre) {
+                $genre = trim($genre);
+
+
+                if (!array_key_exists($genre, $genreToAnimes)) {
+                    $genreToAnimes[$genre] = [];
+                }
+
+                $animeData = [
+                    'Nom' => $result['Nom'],
+                    'ImageUrl' => $result['ImageUrl']
+                ];
+
+                $genreToAnimes[$genre][] = $animeData;
+            }
+        }
+
+        return $genreToAnimes;
+    }
+
 
     public function findGenresWithCountsAndWatching(): array
     {

@@ -9,10 +9,13 @@
 
     <div class="gender-selec-container">
         <div class="gender-algo-wrapper">
-            {% for genre in genres %}
-                <button class="gender-algo-container" data-bs-toggle="modal" data-bs-target="#reg-modal" data-genre="{{ genre }}"><a>{{ genre }}</a></button>
+            {% for genre, animes in genres %}
+                <button class="gender-algo-container" data-bs-toggle="modal" data-bs-target="#reg-modal" data-genre="{{ genre }}" data-animes="{{ animes|json_encode }}">
+                    <a>{{ genre }}</a>
+                </button>
             {% endfor %}
         </div>
+
         <div class="modal fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -20,8 +23,8 @@
                         <h5 class="modal-title" id="modal-title">Choisissez 3 animes :</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                     </div>
-                    <div class="modal-body">
-
+                    <div class="modal-body" id="anime-selection-container">
+                        <!-- Les animes seront injectés ici dynamiquement -->
                     </div>
                 </div>
             </div>
@@ -35,9 +38,8 @@
     <div class="title-image-algo-container">
         <a>Voici nos 4 recommandations :</a>
     </div>
-    <div class="image-algo-container">
-        <a>1.</a>  <div class="text-anime-algo"> Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen </div>{#<img class="image-anime-algo" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">#}
-        <a>2.</a><img class="image-anime-algo" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}"  alt="">
+    <div class="image-algo-container" id="recommendations-container">
+        <!-- Les recommandations d'animes seront affichées ici -->
     </div>
 {% endblock %}
 
@@ -45,11 +47,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const selectedGenres = [];
+            const selectedAnimes = [];  // Tableau qui contiendra uniquement les noms des animes
             const maxGenres = 4;
 
+            // Gérer la sélection des genres
             document.querySelectorAll('.gender-algo-container').forEach(item => {
                 item.addEventListener('click', () => {
                     const genre = item.getAttribute('data-genre');
+                    const animes = JSON.parse(item.getAttribute('data-animes'));
 
                     if (item.classList.contains('selected')) {
                         item.classList.remove('selected');
@@ -59,6 +64,7 @@
                         if (selectedGenres.length < maxGenres) {
                             item.classList.add('selected');
                             selectedGenres.push(genre);
+                            loadAnimesInModal(animes);  // Charger les animes de ce genre dans la modal
                         } else {
                             alert("Vous pouvez sélectionner jusqu'à 4 genres uniquement.");
                         }
@@ -68,30 +74,70 @@
                 });
             });
 
+            // Charger les animes dans la modal
+            function loadAnimesInModal(animes) {
+                const container = document.getElementById('anime-selection-container');
+                container.innerHTML = '';  // Réinitialiser le contenu
+
+                animes.forEach(anime => {
+                    const animeDiv = document.createElement('div');
+                    animeDiv.classList.add('anime-option');
+                    animeDiv.innerHTML = `
+                        <div class="anime-item" data-anime-name="${anime.Nom}">
+                            <img src="${anime.ImageUrl}" alt="${anime.Nom}" width="100" class="anime-image" />
+                            <label for="anime-${anime.Nom}">${anime.Nom}</label>
+                        </div>
+                    `;
+                    container.appendChild(animeDiv);
+                });
+
+                // Ajouter l'événement click pour ajouter les animes au tableau selectedAnimes
+                document.querySelectorAll('.anime-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const animeName = item.getAttribute('data-anime-name');
+
+                        // Si l'anime n'est pas déjà sélectionné
+                        if (!selectedAnimes.includes(animeName)) {
+                            selectedAnimes.push(animeName);
+                            item.style.border = '2px solid green';  // Indicateur visuel pour l'ajout
+
+                            console.log("Animes sélectionnés:", selectedAnimes);
+                        } else {
+                            alert("Cet anime est déjà sélectionné !");
+                        }
+                    });
+                });
+            }
+
+            // Gérer l'envoi des données
             document.getElementById('send-button').addEventListener('click', () => {
                 if (selectedGenres.length === 0) {
                     alert("Veuillez sélectionner au moins un genre.");
                     return;
                 }
 
+                if (selectedAnimes.length === 0) {
+                    alert("Veuillez sélectionner au moins un anime.");
+                    return;
+                }
+
+                // Envoi uniquement des noms des animes sélectionnés
                 fetch("{{ path('algorithm_recommend') }}", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-Requested-With': 'XMLHttpRequest'
                     },
-                    body: JSON.stringify({ genres: selectedGenres })
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Erreur HTTP ${response.status}`);
-                        }
-                        return response.json();
+                    body: JSON.stringify({
+                        genres: selectedGenres,
+                        animes: selectedAnimes  // N'envoyer que les noms des animes
                     })
+                })
+                    .then(response => response.json())
                     .then(data => {
-                        console.log("Réponse du serveur :", data);
                         if (data.success) {
-                            alert("Genres envoyés avec succès : " + JSON.stringify(data.selectedGenres));
+                            console.log("Réponse du serveur :", data);
+                            displayRecommendations(data.selectedAnimes);
                         } else {
                             alert("Erreur dans la réponse : " + data.error);
                         }
@@ -101,7 +147,20 @@
                         alert("Erreur lors de l'envoi des données : " + error.message);
                     });
             });
-        });
 
+            // Afficher les recommandations d'animes
+            function displayRecommendations(animes) {
+                const container = document.getElementById('recommendations-container');
+                container.innerHTML = '';  // Réinitialiser le contenu
+
+                animes.forEach(anime => {
+                    const animeElement = document.createElement('div');
+                    animeElement.innerHTML = `
+                        <p>${anime}</p>
+                    `;
+                    container.appendChild(animeElement);
+                });
+            }
+        });
     </script>
 {% endblock %}

@@ -17,7 +17,7 @@ class StatController extends AbstractController
         $genresData = $animeRepository->findGenresWithCountsAndWatching();
         $dataPoints1 = [];
 
-        $animeData = $animeRepository->findAll();
+        $animeData = $animeRepository->findBy([], ['Popularity' => 'ASC'], 50);
         $dataPoints2 = [];
 
         //dd($genresData);

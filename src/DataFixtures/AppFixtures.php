@@ -76,7 +76,8 @@ class AppFixtures extends Fixture
                 mt_rand(100, 10000), // en cours
                 mt_rand(100, 5000), // complétés
                 mt_rand(10, 2000), // en attente
-                mt_rand(1, 500) // abandonnés
+                mt_rand(1, 500), // abandonnés
+                "https://cdn.myanimelist.net/images/anime/4/19644.jpg" //img
             );
 
             // Ajoute une référence pour lier les rates aux animes
@@ -118,7 +119,7 @@ class AppFixtures extends Fixture
     private function createAnime(ObjectManager $manager, string $nom, float $score, string $genre, string $englishName, string $synopsis,
                                  string $type, int $episode, string $aired, string $premiered, string $producers, string $licensors,
                                  string $studios, string $source, string $duration, string $rating, int $ranked, int $popularity, int $members,
-                                 int $favorites, int $watching, int $completed, int $onHold, int $dropped): Anime
+                                 int $favorites, int $watching, int $completed, int $onHold, int $dropped, string $img): Anime
     {
         $anime = new Anime();
         $anime->setNom($nom)
@@ -143,7 +144,8 @@ class AppFixtures extends Fixture
             ->setWatching($watching)
             ->setCompleted($completed)
             ->setOnHold($onHold)
-            ->setDroped($dropped);
+            ->setDroped($dropped)
+            ->setImageUrl($img);
 
         $manager->persist($anime);
 

@@ -18,11 +18,11 @@
             <p>Studio : {{ anime.Studios }}</p>
             <p>Favorite : {{ anime.Favorites }}</p>
             <br>
-            <p>Synopsis : {{ anime.Synopsis }}</p>
+            <p>Synopsis : {{ anime.Synopsis|length > 2 ? anime.Synopsis|slice(0, 2) ~ '...' : anime.Synopsis }}</p>
         </div>
     </div>
     <div class="image-anime-container">
-        <img class="image-anime-container" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}">
+        <img class="image-anime-container" src="{{anime.ImageUrl}}">
     </div>
 
 

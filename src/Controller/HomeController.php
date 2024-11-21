@@ -54,6 +54,8 @@ class HomeController extends AbstractController
             throw $this->createNotFoundException('Cet anime n\'existe pas.');
         }
 
+        //dd($anime);
+
         return $this->render('home/detail.html.twig', [
             'anime' => $anime,
         ]);
