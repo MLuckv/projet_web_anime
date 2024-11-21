@@ -109,74 +109,42 @@ class ProfileController extends AbstractController
 
     private function getAnimeRecommendations(int $userId, int $n): array
     {
-        // Récupérer les évaluations et les animes
-        $ratings = $this->RateRepository->findBy([], null, 100);
-        $anime = $this->AnimeRepository->findAll();
-
-        // Convertir les évaluations en un format JSON pour le script Python
-        $ratingsData = [];
-        foreach ($ratings as $rating) {
-            $ratingsData[] = [
-                'user_id' => $rating->getUser()->getId(),
-                'anime_id' => $rating->getAnime()->getId(),
-                'rating' => $rating->getRating()
-            ];
-        }
-
-        $animeData = [];
-        foreach ($anime as $a) {
-            $animeData[] = [
-                'anime_id' => $a->getId(),
-                'genres' => $a->getGenre()
-            ];
-        }
-
-        //dd($animeData);
         $pythonPath = 'C:\Users\vmoul\anaconda3\python.exe';
+        $scriptPath = 'C:\wamp64\www\mv\projet_web_anime\algoRecomandation\algoReco.py';
 
-        // process
+        // Processus Python
         $process = new Process([
             $pythonPath,
-            'C:\wamp64\www\mv\projet_web_anime\algoRecomandation\algoReco.py',
-            json_encode($ratingsData), // passer les données en json
-            json_encode($animeData),
-            $userId,
-            $n,
-            0.5
+            $scriptPath,
+            $userId,  // Passer l'utilisateur
+            $n,       // Nombre de recommandations
+            0.5       // Facteur d'échantillonnage
         ]);
 
-
-        // Exécuter le processus
+        $process->setTimeout(3600);
         $process->run();
 
-        // verifier processus a échoué
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
-        // Obtenir la sortie
         $output = json_decode($process->getOutput(), true);
-        $errorOutput = $process->getErrorOutput();
-        if ($errorOutput) {
-            echo "Python error output: " . $errorOutput;
-        }
 
-        //dd($output);
+        // Obtenir les IDs des animes recommandés
         $recommendedAnimeIds = $output['recommendations'] ?? [];
 
+        // Récupérer les informations des animes recommandés
         $recommendedAnimeNames = [];
-        foreach ($anime as $a) {
-            if (in_array($a->getId(), $recommendedAnimeIds)) {
-                $recommendedAnimeNames[] = [
-                    'nom' => $a->getEnglishName() !== null ? $a->getEnglishName() : $a->getNom(),
-                    'image' => $a->getImageUrl(),
-                ];
-            }
+        foreach ($this->AnimeRepository->findBy(['id' => $recommendedAnimeIds]) as $anime) {
+            $recommendedAnimeNames[] = [
+                'nom' => $anime->getEnglishName() ?? $anime->getNom(),
+                'image' => $anime->getImageUrl(),
+            ];
         }
-        //dd($recommendedAnimeNames);
 
         return $recommendedAnimeNames;
     }
+
 
 
 }
