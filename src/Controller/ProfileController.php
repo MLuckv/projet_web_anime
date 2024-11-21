@@ -91,7 +91,7 @@ class ProfileController extends AbstractController
             }
 
             // test de process
-            $recommendations = $this->getAnimeRecommendations($user->getId(), 5);
+            //$recommendations = $this->getAnimeRecommendations($user->getId(), 5);
         }
 
         return $this->render('profile/index.html.twig', [
@@ -103,7 +103,7 @@ class ProfileController extends AbstractController
             'graph1_label' => json_encode($graph1_label),
             'graph2_data' => json_encode($graph2_data),
             'graph2_label' => json_encode($graph2_label),
-            'recommendations' => $recommendations,
+//            'recommendations' => $recommendations,
         ]);
     }
 

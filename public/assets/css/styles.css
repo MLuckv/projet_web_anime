@@ -38,7 +38,7 @@ body {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    animation: scrollDown 20s linear infinite;
+    animation: scrollDown 60s linear infinite;
 }
 
 @keyframes scrollDown {
@@ -51,7 +51,7 @@ body {
 }
 
 .scrolling-image:nth-child(2) {
-    animation-delay: 10s;
+    animation-delay: 30s;
     top: -1800px;
 }
 
@@ -185,6 +185,10 @@ body {
     height: 400px;
     border: 1px solid black;
     left: 175px;
+}
+.gender-container canvas{
+    width: 100%;
+    height: 100%;
 }
 
 .image-recomendation{
@@ -343,7 +347,52 @@ body {
 
 }
 
+#send-button{
+    display: flex;
+    /*flex-wrap: wrap;*/
+    justify-content: center;
+    align-content: center;
+    position: relative;
+    left: 500px;
+    background-color: white;
+    margin-top: 25px;
+    margin-left: 20px;
+    font-size: 35px;
+    font-weight: 700;
+    border: 4px solid black;
+    border-radius: 50px;
+    /*text-align: center;*/
+    padding: 8px;
 
+}
+
+#send-button:hover{
+    background-color: #1E1E1E;
+    color: white;
+    cursor: pointer;
+}
+
+button{
+    background-color: white;
+}
+button.selected{
+    background-color: #1E1E1E;
+    color: white;
+}
+
+.modal-content{
+    background-color: #1E1E1E;
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.modal-body{
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
 
 
 

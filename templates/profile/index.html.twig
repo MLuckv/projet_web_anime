@@ -10,7 +10,7 @@
     </div>
     <div class="title-gender-container"> <a>Genres plus regardé :</a> </div>
     <div class="gender-container">
-        <canvas id="graph1Data" width="400" height="100"></canvas>
+        <canvas id="graph1Data" width="400" height="400"></canvas>
     </div>
     <div class="info-profile">
         <div class="text-profile">
@@ -31,15 +31,15 @@
         <div class="recommendation-container">
             <div class="image-recomendation">
 
-                {% for recommendation in recommendations  %}
-                    <a>{{ loop.index }}.</a>
-                    <h1>{{ recommendation.nom }}</h1>
-                    {% if recommendation.image != null %}
-                        <img class="image-anime-reco" src="{{ recommendation.image }}" width="175" height="225" alt="">
-                    {% else %}
-                        <img class="image-anime-reco" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">
-                    {% endif %}
-                {% endfor %}
+{#                {% for recommendation in recommendations  %}#}
+{#                    <a>{{ loop.index }}.</a>#}
+{#                    <h1>{{ recommendation.nom }}</h1>#}
+{#                    {% if recommendation.image != null %}#}
+{#                        <img class="image-anime-reco" src="{{ recommendation.image }}" width="175" height="225" alt="">#}
+{#                    {% else %}#}
+{#                        <img class="image-anime-reco" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
 
 
                 {#            <a>2.</a><img class="image-anime-reco" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">#}
@@ -48,7 +48,7 @@
         </div>
     <div class="title-note-container"> <a>Moyenne de note en fonction des genres :</a></div>
         <div class="note-gender-container ">
-            <canvas id="graph2Data" width="400" height="100"></canvas>
+            <canvas id="graph2Data" width="400" height="400"></canvas>
         </div>
 
 
