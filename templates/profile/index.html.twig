@@ -31,19 +31,15 @@
         <div class="recommendation-container">
             <div class="image-recomendation">
 
-{#                {% for recommendation in recommendations  %}#}
-{#                    <a>{{ loop.index }}.</a>#}
+                {% for recommendation in recommendations  %}
+                    <a>{{ loop.index }}.</a>
 {#                    <h1>{{ recommendation.nom }}</h1>#}
-{#                    {% if recommendation.image != null %}#}
-{#                        <img class="image-anime-reco" src="{{ recommendation.image }}" width="175" height="225" alt="">#}
-{#                    {% else %}#}
-{#                        <img class="image-anime-reco" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">#}
-{#                    {% endif %}#}
-{#                {% endfor %}#}
-
-
-                {#            <a>2.</a><img class="image-anime-reco" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">#}
-    {#            <a>3.</a><img class="image-anime-reco" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">#}
+                    {% if recommendation.image != null %}
+                        <img class="image-anime-reco" src="{{ recommendation.image }}" width="175" height="225" alt="">
+                    {% else %}
+                        <img class="image-anime-reco" src="{{ asset('/assets/img/detail_anime_img/vertical-placeholder.jpg') }}" width="175" height="225" alt="">
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     <div class="title-note-container"> <a>Moyenne de note en fonction des genres :</a></div>
