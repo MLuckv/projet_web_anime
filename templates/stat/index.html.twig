@@ -3,13 +3,22 @@
 {% block title %}Statistiques{% endblock %}
 
 {% block body %}
+    <div class="title-stat-container">
+        <h1>Page Statistique</h1>
+    </div>
     <div class="graph-data">
-        <canvas id="genreData" width="400" height="150"></canvas>
+        <div class="tile-gender-graph">
+             <h1>Genre populaire :</h1>
+        </div>
+        <canvas id="genreData" width="400" height="175"></canvas>
 
     </div>
 
     <div class="graph-anim">
-        <canvas id="animeData" width="400" height="100"></canvas>
+        <div class="tile-anime-graph">
+            <h1>Anime populaire :</h1>
+        </div>
+        <canvas id="animeData" width="400" height="175"></canvas>
     </div>
 {% endblock %}
 

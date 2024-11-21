@@ -14,10 +14,17 @@ class UserSearch extends AbstractType
     {
         $builder
             ->add('Username', TextType::class, [
-                'label' => 'Enter your username',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'label' => "Entrez un nom d'utilisateur",
                 'required' => true,
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Submit']);
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn-user',
+                ],
+                'label' => 'Envoyer']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
