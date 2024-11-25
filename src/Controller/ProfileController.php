@@ -91,7 +91,7 @@ class ProfileController extends AbstractController
             }
 
             // test de process
-//            $recommendations = $this->getAnimeRecommendations($user->getId(), 5);
+            $recommendations = $this->getAnimeRecommendations($user->getId(), 5);
         }
 
         return $this->render('profile/index.html.twig', [
@@ -103,14 +103,14 @@ class ProfileController extends AbstractController
             'graph1_label' => json_encode($graph1_label),
             'graph2_data' => json_encode($graph2_data),
             'graph2_label' => json_encode($graph2_label),
-//            'recommendations' => $recommendations,
+            'recommendations' => $recommendations,
         ]);
     }
 
     private function getAnimeRecommendations(int $userId, int $n): array
     {
-        //$pythonPath = 'C:\Users\vmoul\anaconda3\python.exe';
-        //$scriptPath = 'C:\wamp64\www\mv\projet_web_anime\algoRecomandation\algoReco.py';
+        $pythonPath = 'C:\Users\vmoul\anaconda3\python.exe';
+        $scriptPath = 'C:\wamp64\www\mv\projet_web_anime\algoRecomandation\algoReco.py';
 
 //        $pythonPath = 'C:\Users\ayoub\anaconda3\python.exe';
 //        $scriptPath = 'C:\Users\ayoub\Documents\GitHub\projet_web_anime\algoRecoma\algoReco.py';

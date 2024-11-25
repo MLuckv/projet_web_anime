@@ -19,10 +19,12 @@ class AnimeRepository extends ServiceEntityRepository
 
     // Repository : AnimeRepository.php
 
-    public function findGenreWithAnime(): array
+    public function findGenreWithAnime($limit): array
     {
         $results = $this->createQueryBuilder('a')
             ->select('a.Genre, a.Nom, a.ImageUrl')
+            ->orderBy('a.Popularity', 'ASC')
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
 

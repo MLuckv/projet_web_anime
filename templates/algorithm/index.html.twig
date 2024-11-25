@@ -16,9 +16,7 @@
             {% endfor %}
 
         </div>
-        <div class="send-button-container">
-            <button id="send-button">Envoyer</button>
-        </div>
+
 
         <div class="modal fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
             <div class="modal-dialog">
@@ -33,7 +31,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><div class="send-button-container">
+    <button id="send-button">Envoyer</button>
+</div>
 
     <div class="title-image-algo-container">
         <a>Voici nos 4 recommandations :</a>
@@ -130,35 +130,39 @@
                     },
                     body: JSON.stringify({
                         genres: selectedGenres,
-                        animes: selectedAnimes  // N'envoyer que les noms des animes
+                        animes: selectedAnimes,
+                        populationSize: 0.5, // Exemple de facteur d'échantillonnage
+                        recommendationCount: 5 // Nombre de recommandations souhaitées
                     })
                 })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            console.log("Réponse du serveur :", data);
-                            displayRecommendations(data.selectedAnimes);
+                            console.log("Recommandations reçues :", data.recommendations);
+                            displayRecommendations(data.recommendations);
                         } else {
-                            alert("Erreur dans la réponse : " + data.error);
+                            alert("Erreur : " + data.error);
                         }
                     })
                     .catch(error => {
-                        console.error("Erreur lors de l'envoi :", error);
+                        console.error("Erreur lors de la requête :", error);
                         alert("Erreur lors de l'envoi des données : " + error.message);
                     });
+
             });
 
             // Afficher les recommandations d'animes
-            function displayRecommendations(animes) {
+            function displayRecommendations(recommendations) {
                 const container = document.getElementById('recommendations-container');
-                container.innerHTML = '';  // Réinitialiser le contenu
+                container.innerHTML = '';
 
-                animes.forEach(anime => {
-                    const animeElement = document.createElement('div');
-                    animeElement.innerHTML = `
-                        <p>${anime}</p>
-                    `;
-                    container.appendChild(animeElement);
+                recommendations.forEach(anime => {
+                    const animeDiv = document.createElement('div');
+                    animeDiv.classList.add('anime-recommendation');
+                    animeDiv.innerHTML = `
+            <div>${anime.anime_name}</div>
+        `;
+                    container.appendChild(animeDiv);
                 });
             }
         });

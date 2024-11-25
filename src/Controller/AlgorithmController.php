@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Repository\AnimeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +26,7 @@ class AlgorithmController extends AbstractController
     public function index(): Response
     {
         // Récupérer les genres avec leurs animes associés
-        $genres = $this->AnimeRepository->findGenreWithAnime();
+        $genres = $this->AnimeRepository->findGenreWithAnime(100);
 
         return $this->render('algorithm/index.html.twig', [
             'genres' => $genres,
@@ -36,22 +38,41 @@ class AlgorithmController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        // Vérifier que les genres et les animes sont présents
-        if (!isset($data['genres']) || !is_array($data['genres']) || !isset($data['animes']) || !is_array($data['animes'])) {
-            return new JsonResponse([
-                'success' => false,
-                'error' => 'Invalid input format'
-            ], Response::HTTP_BAD_REQUEST);
+        if (!isset($data['genres']) || !isset($data['animes']) || !isset($data['populationSize']) || !isset($data['recommendationCount'])) {
+            return new JsonResponse(['success' => false, 'error' => 'Invalid input format'], Response::HTTP_BAD_REQUEST);
         }
 
-        $selectedGenres = $data['genres'];
-        $selectedAnimes = $data['animes'];
+        $genres = $data['genres'];
+        $animes = $data['animes'];
+        $populationSize = (float) $data['populationSize'];
+        $recommendationCount = (int) $data['recommendationCount'];
 
-        // Retourner les genres et les animes sélectionnés
+        $pythonPath = 'C:\Users\vmoul\anaconda3\python.exe'; // Remplacez par le chemin vers Python
+        $scriptPath = 'C:\wamp64\www\mv\projet_web_anime\algoRecomandation\algoRecoWithGenreAndAnime.py';
+
+        $process = new Process([
+            $pythonPath,
+            $scriptPath,
+            $recommendationCount,
+            $populationSize,
+            json_encode($genres),
+            json_encode($animes),
+        ]);
+
+        $process->setTimeout(3600);
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        $output = json_decode($process->getOutput(), true);
+
+
         return new JsonResponse([
             'success' => true,
-            'selectedGenres' => $selectedGenres,
-            'selectedAnimes' => $selectedAnimes,
+            'recommendations' => $output['recommendations'],
         ]);
     }
+
 }
