@@ -17,7 +17,7 @@ class StatController extends AbstractController
         $genresData = $animeRepository->findGenresWithCountsAndWatching();
         $dataPoints1 = [];
 
-        $animeData = $animeRepository->findBy([], ['Popularity' => 'ASC'], 50);
+        $animeData = $animeRepository->findBy([], ['Popularity' => 'ASC'], 100);
         $dataPoints2 = [];
 
         //dd($genresData);
@@ -32,10 +32,13 @@ class StatController extends AbstractController
         }
 
         foreach ($animeData as $anime) {
+            if ($anime->getNom() === "One Piece") {
+                continue;
+            }
             $dataPoints2[] = [
-                'x' => $anime->getWatching(),
-                'y' => $anime->getScore(),
-                'r' => $anime->getEpisode(),//taille bulle
+                'x' => $anime->getWatching(),//regardant
+                'y' => $anime->getPopularity(),//
+                'r' => $anime->getEpisode()/5,//taille bulle
                 'label' => $anime->getNom(),
                 'popularity' => $anime->getPopularity(),
             ];
