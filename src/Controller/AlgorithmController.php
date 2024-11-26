@@ -67,11 +67,18 @@ class AlgorithmController extends AbstractController
         }
 
         $output = json_decode($process->getOutput(), true);
-
+        $recommendedAnimeNames = [];
+        foreach ($output['recommendations'] as $recommendation) {
+            $anime = $this->AnimeRepository->find($recommendation['anime_id']);
+            $recommendedAnimeNames[] = [
+                'nom' => $anime->getEnglishName() ?? $anime->getNom(),
+                'image' => $anime->getImageUrl(),
+            ];
+        }
 
         return new JsonResponse([
             'success' => true,
-            'recommendations' => $output['recommendations'],
+            'recommendations' => $recommendedAnimeNames,
         ]);
     }
 

@@ -160,7 +160,7 @@
                     const animeDiv = document.createElement('div');
                     animeDiv.classList.add('anime-recommendation');
                     animeDiv.innerHTML = `
-            <div>${anime.anime_name}</div>
+            <div><img class="image-anime-reco" src="${anime.image}" width="175" height="225" alt=""></div>
         `;
                     container.appendChild(animeDiv);
                 });
