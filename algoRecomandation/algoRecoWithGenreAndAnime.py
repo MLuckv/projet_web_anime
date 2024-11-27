@@ -48,6 +48,10 @@ filtered_anime_df = anime_df[
     anime_df['anime_name'].isin(input_animes)
 ]
 
+# Exclure les animes spécifiés dans `input_animes` des recommandations
+anime_to_exclude = filtered_anime_df[filtered_anime_df['anime_name'].isin(input_animes)]
+excluded_ids = set(anime_to_exclude['anime_id'])
+
 # Fusion des données pour inclure uniquement les animes filtrés
 df = pd.merge(ratings_df, filtered_anime_df[['anime_id', 'genres']], on='anime_id', how='inner')
 df.dropna(inplace=True)
@@ -70,8 +74,9 @@ model_svd.fit(trainset)
 
 # Obtenir les recommandations
 def get_top_n_recommendations(n=5):
-    all_anime = df['anime_id'].unique()
-    predictions = model_svd.test([(0, anime_id, 0) for anime_id in all_anime])  # user_id = 0
+    all_anime = set(df['anime_id'].unique())
+    anime_for_recommendation = list(all_anime - excluded_ids)  # Exclure les animes spécifiés
+    predictions = model_svd.test([(0, anime_id, 0) for anime_id in anime_for_recommendation])  # user_id = 0
     top_n_recommendations = sorted(predictions, key=lambda x: x.est, reverse=True)[:n]
     return [int(pred.iid) for pred in top_n_recommendations]
 

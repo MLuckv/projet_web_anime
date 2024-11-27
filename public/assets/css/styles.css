@@ -115,6 +115,7 @@ body {
     border: 1px solid blue;
 }
 
+
 /*page profile */
 .info-profile{
     position: absolute;
@@ -373,8 +374,10 @@ body {
 .gender-selec-container{
     position: absolute;
     background-color: #D3CCFF;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
     width: 1200px;
-    height: 443px;
+    height: 700px;
     margin-top: 100px;
     margin-left: 50px;
     border-radius: 15px;
@@ -384,7 +387,7 @@ body {
 .gender-algo-wrapper{
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 0px;
 }
 
 .gender-algo-container{
@@ -409,7 +412,7 @@ body {
 
 .title-image-algo-container{
     position: absolute;
-    margin-top: 550px;
+    margin-top: 830px;
     margin-left: 52px;
     color: white;
     font-size: 40px;
@@ -420,7 +423,7 @@ body {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    margin-top: 600px;
+    margin-top: 880px;
     margin-left: 52px;
     width: 1200px;
     height: 443px;
@@ -428,6 +431,8 @@ body {
     font-size: 35px;
     color: #5E0A3F;
     border: 1px solid black;
+    border-radius: 15px;
+    padding: 8px;
 }
 .image-anime-algo{
     position: relative;
@@ -448,6 +453,10 @@ body {
     height: 225px;
     font-family: "Francois One", sans-serif;
 
+
+}
+
+.send-button-container{
 
 }
 
@@ -489,13 +498,18 @@ button.selected{
     display: flex;
     flex-wrap: wrap;
     color: white;
+    padding: 5px;
+    /*overflow: ;*/
 }
 
 .modal-body{
-    display: flex;
-    margin-top: 5px;
-    margin-bottom: 5px;
-
+    /*position: relative;*/
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*margin-top: 100px;*/
+    /*margin-right: 100px;*/
+    /*margin-bottom: 10px;*/
+    /*width: 50px;*/
 }
 
 
