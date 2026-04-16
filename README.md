@@ -1,4 +1,4 @@
-# Crunch'Roll – Plateforme fictive de streaming d'anime
+# NekoStream – Plateforme fictive de streaming d'anime
 
 ## Présentation
 Ce projet académique simule la création d’une entreprise fictive de streaming d’anime.  
