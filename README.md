@@ -1,4 +1,4 @@
-# NekoStream – Plateforme fictive de streaming d'anime
+# Crunch'Roll
 
 ## Présentation
 Ce projet académique simule la création d’une entreprise fictive de streaming d’anime.  
@@ -100,9 +100,6 @@ php -S 127.0.0.1:8000 -t public
 1. Se connecter via l’espace profil.
 2. L’algorithme **SVD** exploite l’historique de notes/interactions.
 3. Affichage de recommandations personnalisées.
-
-## Validation du projet
-- Tests unitaires disponibles via PHPUnit (`php bin/phpunit`).
 
 ## Limites actuelles
 - Certains chemins Python sont encore codés en dur dans les contrôleurs et doivent être externalisés en variables d’environnement.
