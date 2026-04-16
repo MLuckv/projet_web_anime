@@ -4,7 +4,7 @@
 Ce projet académique simule la création d’une entreprise fictive de streaming d’anime.  
 L’objectif est de combiner **développement web**, **ingénierie data** et **recommandation intelligente** pour proposer une expérience personnalisée aux utilisateurs.
 
-Le projet s’appuie sur une base de données enrichie à grande échelle (plus d’1 million de lignes importées via **PDI / Pentaho Data Integration**) afin d’analyser les tendances et alimenter des algorithmes de recommandation.
+Le projet s’appuie sur une base de données enrichie à grande échelle (plus de 1 million de lignes importées via **PDI / Pentaho Data Integration**) afin d’analyser les tendances et alimenter des algorithmes de recommandation.
 
 ## Objectifs du projet
 - Concevoir une application web complète autour d’un catalogue d’anime.
@@ -17,7 +17,7 @@ Le projet s’appuie sur une base de données enrichie à grande échelle (plus 
 - **Recherche d’anime** et consultation des détails.
 - **Statistiques interactives** sur les genres et la popularité.
 - **Recommandation “nouvel utilisateur”** :
-  - sélection de genres et d’animes appréciés,
+  - sélection de genres et d’anime appréciés,
   - suggestions générées à partir de ces préférences.
 - **Recommandation “utilisateur existant”** :
   - connexion/profil utilisateur,
@@ -93,8 +93,8 @@ php -S 127.0.0.1:8000 -t public
 
 ### Nouvel utilisateur (cold start)
 1. Choisir ses genres favoris.
-2. Sélectionner des animes qu’il apprécie.
-3. Recevoir une liste d’animes recommandés.
+2. Sélectionner des anime qu’il apprécie.
+3. Recevoir une liste d’anime recommandés.
 
 ### Utilisateur existant
 1. Se connecter via l’espace profil.
